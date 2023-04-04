@@ -26,34 +26,34 @@ jobs:
         with:
           java-version: ${{ env.JAVA_VERSION }}
 
-      - name: 'Restore Project Dependencies Using Mvn'
-        shell: pwsh
-        run: |
-          pushd './${{ env.PACKAGE_DIRECTORY }}'
-          mvn clean package
-          popd
+      # - name: 'Restore Project Dependencies Using Mvn'
+      #   shell: pwsh
+      #   run: |
+      #     pushd './${{ env.PACKAGE_DIRECTORY }}'
+      #     mvn clean package
+      #     popd
+# 
+      # - name: "Create ZIP"
+      #   run: |
+      #     Get-ChildItem $pwd | Compress-Archive -Destination .\package.zip
+      #   shell: pwsh
 
-      - name: "Create ZIP"
-        run: |
-          Get-ChildItem $pwd | Compress-Archive -Destination .\package.zip
-        shell: pwsh
-
-      - name: "Azure login"
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_RBAC_CREDENTIALS }}
-
-      - name: "ZIP Deploy"
-        run: |
-          az functionapp deployment source config-zip -g demo1 -n javafuncdeploytest --src .\package.zip
-        shell: pwsh
-
-      # - name: 'Run Azure Functions Action'
-      #   uses: Azure/functions-action@v1
-      #   id: fa
+      # - name: "Azure login"
+      #   uses: azure/login@v1
       #   with:
-      #     app-name: 'javafuncdeploytest'
-      #     slot-name: 'Production'
-      #     publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_21B0340B8B024D33AAB851FE8EBEE304 }}
-      #     package: '${{ env.PACKAGE_DIRECTORY }}'
-      #     respect-pom-xml: true
+      #     creds: ${{ secrets.AZURE_RBAC_CREDENTIALS }}
+
+      # - name: "ZIP Deploy"
+      #   run: |
+      #     az functionapp deployment source config-zip -g demo1 -n javafuncdeploytest --src .\package.zip
+      #   shell: pwsh
+
+      - name: 'Run Azure Functions Action'
+        uses: Azure/functions-action@v1
+        id: fa
+        with:
+          app-name: 'javafuncdeploytest'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_21B0340B8B024D33AAB851FE8EBEE304 }}
+          # package: '${{ env.PACKAGE_DIRECTORY }}'
+          # respect-pom-xml: true
