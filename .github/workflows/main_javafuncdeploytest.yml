@@ -39,5 +39,5 @@ jobs:
           app-name: 'javafuncdeploytest'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_21B0340B8B024D33AAB851FE8EBEE304 }}
-          package: '${{ env.PACKAGE_DIRECTORY }}'
-          respect-pom-xml: true
+          #package: '${{ env.PACKAGE_DIRECTORY }}'
+          #respect-pom-xml: true
