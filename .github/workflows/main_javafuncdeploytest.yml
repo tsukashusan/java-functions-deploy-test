@@ -45,7 +45,7 @@ jobs:
 
       - name: "ZIP Deploy"
         run: |
-          az functionapp deployment source config-zip -g demo1 -n javafuncdeploytest --src ./package.zip
+          az functionapp deployment source config-zip -g demo1 -n javafuncdeploytest --src .\package.zip
         shell: pwsh
 
       # - name: 'Run Azure Functions Action'
