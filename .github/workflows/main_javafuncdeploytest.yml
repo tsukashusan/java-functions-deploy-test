@@ -37,10 +37,13 @@ jobs:
         run: |
           Get-ChildItem $pwd | Compress-Archive -Destination .\package.zip
         shell: pwsh
-#
+
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: "ZIP Deploy"
         run: |
-          az login
           az functionapp deployment source config-zip -g demo1 -n javafuncdeploytest --src ./package.zip
         shell: pwsh
 
