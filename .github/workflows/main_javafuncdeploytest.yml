@@ -26,6 +26,11 @@ jobs:
         with:
           java-version: ${{ env.JAVA_VERSION }}
 
+      - name: "Create ZIP"
+        run: |
+          Get-ChildItem $pwd | Compress-Archive -Destination .\package.zip
+        shell: pwsh
+
       - name: 'Restore Project Dependencies Using Mvn'
         shell: pwsh
         run: |
@@ -39,5 +44,6 @@ jobs:
           app-name: 'javafuncdeploytest'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_21B0340B8B024D33AAB851FE8EBEE304 }}
+          package: ./package.zip
           #package: '${{ env.PACKAGE_DIRECTORY }}'
           #respect-pom-xml: true
