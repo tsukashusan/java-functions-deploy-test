@@ -26,12 +26,12 @@ jobs:
         with:
           java-version: ${{ env.JAVA_VERSION }}
 
-      # - name: 'Restore Project Dependencies Using Mvn'
-      #   shell: pwsh
-      #   run: |
-      #     pushd './${{ env.PACKAGE_DIRECTORY }}'
-      #     mvn clean package
-      #     popd
+      - name: 'Restore Project Dependencies Using Mvn'
+        shell: pwsh
+        run: |
+          pushd './${{ env.PACKAGE_DIRECTORY }}'
+          mvn clean package
+          popd
 # 
       # - name: "Create ZIP"
       #   run: |
@@ -55,5 +55,6 @@ jobs:
           app-name: 'javafuncdeploytest'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_21B0340B8B024D33AAB851FE8EBEE304 }}
+          scm-do-build-during-deployment: true
           # package: '${{ env.PACKAGE_DIRECTORY }}'
           # respect-pom-xml: true
