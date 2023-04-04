@@ -38,9 +38,10 @@ jobs:
           Get-ChildItem $pwd | Compress-Archive -Destination .\package.zip
         shell: pwsh
 
-      - uses: azure/login@v1
+      - name: "Azure login"
+        uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: ${{ secrets.AZURE_RBAC_CREDENTIALS }}
 
       - name: "ZIP Deploy"
         run: |
